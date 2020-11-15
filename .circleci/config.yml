@@ -5,8 +5,8 @@ jobs:
     steps:
       - checkout
       - run: |
-          docker build -t briandemaio/reactapp:dev -f Dockerfile.dev
-          docker run briandemaio/reactapp:dev npm run test -- --coverage
+          docker build -t briandemaio/reactapp -f Dockerfile.dev
+          docker run briandemaio/reactapp npm run test -- --coverage
           docker build -t briandemaio/reactapp:lastest .
           docker run -d --name briandemaio/reactapp:latest
         # docker exec briandemaio/reactapp:latest curl --retry 10 --retry-connrefused http://localhost:8080
