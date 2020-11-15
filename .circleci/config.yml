@@ -1,26 +1,7 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: circleci/node:12.9.1-browsers
-
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: npm install
-
-      - save_cache:
-          paths:
-            - node_modules
-            - ~/.npm
-            - ~/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: npm test
-
       - setup_remote_docker:
           version: 19.03.13
 
@@ -28,4 +9,4 @@ jobs:
           docker build -t briandemaio/reactapp:latest .
           docker run briandemaio/reactapp:latest npm run test -- --coverage
           docker run -d --name briandemaio/reactapp:latest
-          docker exec my-app curl --retry 10 --retry-connrefused http://localhost:8080
+          docker exec briandemaio/reactapp:latest curl --retry 10 --retry-connrefused http://localhost:8080
