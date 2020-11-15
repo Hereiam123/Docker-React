@@ -3,6 +3,7 @@ jobs:
   build:
     machine: true
     steps:
+      - checkout
       - run: |
           docker build -t briandemaio/reactapp:latest .
           docker run briandemaio/reactapp:latest npm run test -- --coverage
