@@ -26,3 +26,6 @@ jobs:
 
       - run: |
           docker build -t briandemaio/reactapp:latest .
+          docker run briandemaio/reactapp:latest npm run test -- --coverage
+          docker run -d --name briandemaio/reactapp:latest
+          docker exec my-app curl --retry 10 --retry-connrefused http://localhost:8080
