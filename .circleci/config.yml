@@ -3,9 +3,6 @@ jobs:
   build:
     machine: true
     steps:
-      - setup_remote_docker:
-          version: 19.03.13
-
       - run: |
           docker build -t briandemaio/reactapp:latest .
           docker run briandemaio/reactapp:latest npm run test -- --coverage
