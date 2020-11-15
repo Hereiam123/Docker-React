@@ -7,10 +7,10 @@ jobs:
       - run: |
           docker build -t hereiam123/reactapp:dev -f Dockerfile.dev .
           docker run -e CI=true hereiam123/reactapp:dev npm run test -- --coverage
-          docker build -t hereiam123/reactapp:lastest .
+          docker build -t hereiam123/reactapp:latest .
           echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-          docker push hereiam123/reactapp:lastest
+          docker push hereiam123/reactapp:latest
       - run:
           name: Deploy app to Digital Ocean Server via Docker
           command: |
-            ssh -o StrictHostKeyChecking=no circleci@$DEPLOY_IP "/bin/bash ./deploy_app.sh hereiam123/reactapp:lastest"
+            ssh -o StrictHostKeyChecking=no circleci@$DEPLOY_IP "/bin/bash ./deploy_app.sh hereiam123/reactapp:latest"
