@@ -5,10 +5,12 @@ jobs:
     steps:
       - checkout
       - run: |
-          docker build -t briandemaio/reactapp:dev -f Dockerfile.dev .
-          docker run -e CI=true briandemaio/reactapp:dev npm run test -- --coverage
-          docker build -t briandemaio/reactapp:lastest .
+          docker build -t hereiam123/reactapp:dev -f Dockerfile.dev .
+          docker run -e CI=true hereiam123/reactapp:dev npm run test -- --coverage
+          docker build -t hereiam123/reactapp:lastest .
           echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-          docker push briandemaio/reactapp:lastest
-        #docker run -d --name briandemaio/reactapp:latest
-        #docker exec briandemaio/reactapp:latest curl --retry 10 --retry-connrefused http://localhost:8080
+          docker push hereiam123/reactapp:lastest
+      - run:
+          name: Deploy app to Digital Ocean Server via Docker
+          command: |
+            ssh -o StrictHostKeyChecking=no root@hello.dpunks.org "/bin/bash ./deploy_app.sh hereiam123/reactapp:lastest"
